@@ -1,3 +1,5 @@
+using GameStore.Api.Models;
+
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,35 @@ WebApplication? app = builder.Build();
 
 // Http Request pipeline Configuration
 
-app.MapGet("/", () => "Hello World!");
+
+// Mock Data
+List<Game> games =
+[
+    new Game {
+        Id = Guid.NewGuid(),
+        Name = "Street Fighter II",
+        Genre = "Fighting",
+        Price = 19.99m,
+        ReleaseDate = new DateOnly(1992, 7, 15)
+    },
+    new Game {
+        Id = Guid.NewGuid(),
+        Name = "Final Fantasy XIV",
+        Genre = "Roleplaying",
+        Price = 59.99m,
+        ReleaseDate = new DateOnly(2010, 9, 30) },
+    new Game {
+        Id = Guid.NewGuid(),
+        Name = "FIFA 23",
+        Genre = "Sports",
+        Price = 69.99m,
+        ReleaseDate = new DateOnly(2022, 9, 27) }
+];
+
+// Endpoints
+
+app.MapGet("/", () => "Welcome to Games Store API.");
+
+app.MapGet("/games", () => games);
 
 app.Run();
