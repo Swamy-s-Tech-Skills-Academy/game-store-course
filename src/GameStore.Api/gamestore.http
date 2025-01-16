@@ -1,11 +1,20 @@
-GET http://localhost:5082/games
+@GameAPIs_HostAddress=https://localhost:7202
+@ContentType = application/json
+
+### Root Route
+
+GET {{GameAPIs_HostAddress}}/
 
 ###
-GET http://localhost:5082/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
+
+GET {{GameAPIs_HostAddress}}/games
 
 ###
-POST http://localhost:5082/games
-Content-Type: application/json
+GET {{GameAPIs_HostAddress}}/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
+
+###
+POST {{GameAPIs_HostAddress}}/games
+Content-Type: {{ContentType}}
 
 {
     "name": "TEST GAME",
@@ -16,8 +25,8 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5082/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
-Content-Type: application/json
+PUT {{GameAPIs_HostAddress}}/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
+Content-Type: {{ContentType}}
 
 {
     "name": "Minecraft for Windows",
@@ -28,7 +37,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5082/games/a0eaa60b-058c-4ec4-9412-2c0913725b06
+DELETE {{GameAPIs_HostAddress}}/games/a0eaa60b-058c-4ec4-9412-2c0913725b06
 
 ###
-GET http://localhost:5082/genres
+GET {{GameAPIs_HostAddress}}/genres
