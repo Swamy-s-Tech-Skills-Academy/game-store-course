@@ -9,7 +9,8 @@ WebApplication? app = builder.Build();
 // Http Request pipeline Configuration
 
 
-// Mock Data
+// Endpoints
+
 List<Game> games =
 [
     new Game {
@@ -33,10 +34,6 @@ List<Game> games =
         ReleaseDate = new DateOnly(2022, 9, 27) }
 ];
 
-// Endpoints
-
-app.MapGet("/", () => "Welcome to Games Store API.");
-
-app.MapGet("/games", () => games);
+app.MapGet("/", () => "Hello World!");
 
 app.Run();
