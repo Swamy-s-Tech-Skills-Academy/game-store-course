@@ -10,7 +10,9 @@ WebApplication? app = builder.Build();
 
 
 // Endpoints
+app.MapGet("/", () => "Hello World!");
 
+// Data Store
 List<Game> games =
 [
     new Game {
@@ -33,7 +35,5 @@ List<Game> games =
         Price = 69.99m,
         ReleaseDate = new DateOnly(2022, 9, 27) }
 ];
-
-app.MapGet("/", () => "Hello World!");
 
 app.Run();
