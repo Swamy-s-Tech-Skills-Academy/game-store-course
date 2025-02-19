@@ -1,4 +1,4 @@
-namespace GameStore.Api.Tests
+﻿namespace GameStore.Api.Tests
 {
     public class UnitTest1
     {
