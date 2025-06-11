@@ -17,6 +17,7 @@ app.MapGet("/", () => new
     DateTime = DateTime.UtcNow
 });
 
+
 // Data Store
 List<Game> games =
 [
@@ -40,5 +41,12 @@ List<Game> games =
         Price = 69.99m,
         ReleaseDate = new DateOnly(2022, 9, 27) }
 ];
+
+// GET /games
+app.MapGet("/games", () => games)
+    .WithName("GetAllGames")
+    .WithTags("Games")
+    .Produces<List<Game>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status500InternalServerError);
 
 app.Run();
