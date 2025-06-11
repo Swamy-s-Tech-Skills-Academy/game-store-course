@@ -53,12 +53,8 @@ app.MapGet("/games", () => games)
 app.MapGet("/games/{id:guid}", (Guid id) =>
 {
     Game? game = games.FirstOrDefault(g => g.Id == id);
-    if (game is null)
-    {
-        return Results.NotFound();
-    }
 
-    return Results.Ok(game);
+    return (game is null) ? Results.NotFound() : Results.Ok(game);
 })
     .WithName("GetGameById")
     .WithTags("Games")
