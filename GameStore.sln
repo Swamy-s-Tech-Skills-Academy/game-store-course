@@ -21,6 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api", "src\GameSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api.Tests", "tests\GameStore.Api.Tests\GameStore.Api.Tests.csproj", "{986D5004-8DFA-4A62-B3C7-B2019A38966B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{5B87A98A-02F4-4A1E-A204-029AD6F5B2E3}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\a.txt = docs\images\a.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DEE97A76-C9A3-BFAF-1CCD-4A95303F54F6} = {B1390499-513E-4092-9B85-6D640ED2A8F7}
 		{986D5004-8DFA-4A62-B3C7-B2019A38966B} = {7BE29FFE-899C-4AAF-AEE2-262145457C12}
+		{5B87A98A-02F4-4A1E-A204-029AD6F5B2E3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C60A6E80-0DEA-4939-B5BA-DCB40D717626}
