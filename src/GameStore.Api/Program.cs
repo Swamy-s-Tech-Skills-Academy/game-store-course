@@ -49,4 +49,21 @@ app.MapGet("/games", () => games)
     .Produces<List<Game>>(StatusCodes.Status200OK)
     .Produces(StatusCodes.Status500InternalServerError);
 
+// GET /games/{id}
+app.MapGet("/games/{id:guid}", (Guid id) =>
+{
+    Game? game = games.FirstOrDefault(g => g.Id == id);
+    if (game is null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(game);
+})
+    .WithName("GetGameById")
+    .WithTags("Games")
+    .Produces<Game>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status500InternalServerError);
+
 app.Run();

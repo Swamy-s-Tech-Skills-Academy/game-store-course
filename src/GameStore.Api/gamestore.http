@@ -5,12 +5,17 @@
 
 GET {{GameAPIs_HostAddress}}/
 
-###
+### Get All Games
 
 GET {{GameAPIs_HostAddress}}/games
 
-###
-GET {{GameAPIs_HostAddress}}/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
+### Valid Game ID
+GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-a145d800be0c
+
+
+### Invalid Game ID
+GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-b245d800be0c
+
 
 ###
 POST {{GameAPIs_HostAddress}}/games
