@@ -10,7 +10,12 @@ WebApplication? app = builder.Build();
 
 
 // Endpoints
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => new
+{
+    Message = "Welcome to the Games API",
+    RequestId = Guid.NewGuid(),
+    DateTime = DateTime.UtcNow
+});
 
 // Data Store
 List<Game> games =
