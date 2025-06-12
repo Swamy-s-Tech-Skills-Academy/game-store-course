@@ -10,7 +10,13 @@ WebApplication? app = builder.Build();
 
 
 // Endpoints
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => new
+{
+    Message = "Welcome to the Games API",
+    RequestId = Guid.NewGuid(),
+    DateTime = DateTime.UtcNow
+});
+
 
 // Data Store
 List<Game> games =
@@ -35,5 +41,25 @@ List<Game> games =
         Price = 69.99m,
         ReleaseDate = new DateOnly(2022, 9, 27) }
 ];
+
+// GET /games
+app.MapGet("/games", () => games)
+    .WithName("GetAllGames")
+    .WithTags("Games")
+    .Produces<List<Game>>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status500InternalServerError);
+
+// GET /games/{id}
+app.MapGet("/games/{id:guid}", (Guid id) =>
+{
+    Game? game = games.FirstOrDefault(g => g.Id == id);
+
+    return (game is null) ? Results.NotFound() : Results.Ok(game);
+})
+    .WithName("GetGameById")
+    .WithTags("Games")
+    .Produces<Game>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status500InternalServerError);
 
 app.Run();
