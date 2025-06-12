@@ -102,4 +102,23 @@ app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
     .Produces(StatusCodes.Status400BadRequest)
     .Produces(StatusCodes.Status500InternalServerError);
 
+// DELETE /games/{id}
+app.MapDelete("/games/{id:guid}", (Guid id) =>
+{
+    Game? existingGame = games.FirstOrDefault(g => g.Id == id);
+
+    if (existingGame is null)
+    {
+        return Results.NotFound();
+    }
+
+    games.Remove(existingGame);
+    return Results.NoContent();
+})
+    .WithName("DeleteGame")
+    .WithTags("Games")
+    .Produces(StatusCodes.Status204NoContent)
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status500InternalServerError);
+
 app.Run();
