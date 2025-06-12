@@ -113,6 +113,7 @@ app.MapDelete("/games/{id:guid}", (Guid id) =>
     }
 
     games.Remove(existingGame);
+
     return Results.NoContent();
 })
     .WithName("DeleteGame")

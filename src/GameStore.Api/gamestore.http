@@ -21,7 +21,7 @@ POST {{GameAPIs_HostAddress}}/games
 Content-Type: {{ContentType}}
 
 {
-    "name": "TEST GAME",
+    "name": "Test Game",
     "genreId": "C0FE34BF-1E5F-43A0-B370-AB7C45B388C1",
     "genre": "Action",
     "price": 19.99,
@@ -30,7 +30,7 @@ Content-Type: {{ContentType}}
 }
 
 ###
-PUT {{GameAPIs_HostAddress}}/games/2e1834d6-1829-4b2a-bcf3-c71b0e259025
+PUT {{GameAPIs_HostAddress}}/games/954aaaad-fcf4-4ed2-9106-eee20fff87d5
 Content-Type: {{ContentType}}
 
 {
@@ -43,7 +43,7 @@ Content-Type: {{ContentType}}
 }
 
 ###
-DELETE {{GameAPIs_HostAddress}}/games/a0eaa60b-058c-4ec4-9412-2c0913725b06
+DELETE {{GameAPIs_HostAddress}}/games/954aaaad-fcf4-4ed2-9106-eee20fff87d5
 
 ###
 GET {{GameAPIs_HostAddress}}/genres
