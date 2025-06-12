@@ -30,11 +30,12 @@ Content-Type: {{ContentType}}
 }
 
 ###
-PUT {{GameAPIs_HostAddress}}/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
+PUT {{GameAPIs_HostAddress}}/games/2e1834d6-1829-4b2a-bcf3-c71b0e259025
 Content-Type: {{ContentType}}
 
 {
-    "name": "Minecraft for Windows",
+    "name": "Test Game Updated",
+    "genre": "Family and Kids",
     "genreId": "AF333D56-2146-4899-9ABE-BA9ABD7EFC83",
     "price": 7.97,
     "releaseDate": "2011-11-18",

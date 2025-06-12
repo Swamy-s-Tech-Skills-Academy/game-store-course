@@ -18,7 +18,7 @@ app.MapGet("/", () => new
 });
 
 
-// Data Store
+// Data Store - Not a Thread-safe implementation, for demonstration purposes only.
 List<Game> games =
 [
     new Game {
