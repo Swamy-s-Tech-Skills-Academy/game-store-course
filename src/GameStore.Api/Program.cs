@@ -92,7 +92,7 @@ app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
     existingGame.Price = updatedGame.Price;
     existingGame.ReleaseDate = updatedGame.ReleaseDate;
 
-    return Results.Ok(existingGame);
+    return Results.NoContent();
 })
     .WithName("UpdateGame")
     .WithTags("Games")
