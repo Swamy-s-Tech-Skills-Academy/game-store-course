@@ -77,4 +77,29 @@ app.MapPost("/games", (Game game) =>
     .Produces(StatusCodes.Status400BadRequest)
     .Produces(StatusCodes.Status500InternalServerError);
 
+// PUT /games/{id}
+app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
+{
+    Game? existingGame = games.FirstOrDefault(g => g.Id == id);
+
+    if (existingGame is null)
+    {
+        return Results.NotFound();
+    }
+
+    existingGame.Name = updatedGame.Name;
+    existingGame.Genre = updatedGame.Genre;
+    existingGame.Price = updatedGame.Price;
+    existingGame.ReleaseDate = updatedGame.ReleaseDate;
+
+    return Results.Ok(existingGame);
+})
+    .WithName("UpdateGame")
+    .WithTags("Games")
+    .WithParameterValidation()
+    .Produces<Game>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status400BadRequest)
+    .Produces(StatusCodes.Status500InternalServerError);
+
 app.Run();
