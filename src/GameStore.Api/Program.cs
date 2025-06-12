@@ -62,4 +62,18 @@ app.MapGet("/games/{id:guid}", (Guid id) =>
     .Produces(StatusCodes.Status404NotFound)
     .Produces(StatusCodes.Status500InternalServerError);
 
+// POST /games
+app.MapPost("/games", (Game game) =>
+{
+    game.Id = Guid.NewGuid();
+    games.Add(game);
+
+    return Results.CreatedAtRoute("GetGameById", new { id = game.Id }, game);
+})
+    .WithName("CreateGame")
+    .WithTags("Games")
+    .Produces<Game>(StatusCodes.Status201Created)
+    .Produces(StatusCodes.Status400BadRequest)
+    .Produces(StatusCodes.Status500InternalServerError);
+
 app.Run();
