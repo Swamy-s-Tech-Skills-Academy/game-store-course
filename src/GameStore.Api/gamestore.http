@@ -6,7 +6,6 @@
 GET {{GameAPIs_HostAddress}}/
 
 ### Get All Games
-
 GET {{GameAPIs_HostAddress}}/games
 
 ### Valid Game ID
@@ -17,13 +16,14 @@ GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-a145d800be0c
 GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-b245d800be0c
 
 
-###
+### Create Game
 POST {{GameAPIs_HostAddress}}/games
 Content-Type: {{ContentType}}
 
 {
     "name": "TEST GAME",
     "genreId": "C0FE34BF-1E5F-43A0-B370-AB7C45B388C1",
+    "genre": "Action",
     "price": 19.99,
     "releaseDate": "1992-07-15",
     "description": "Test Description"
