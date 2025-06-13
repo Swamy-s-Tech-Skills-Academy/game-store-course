@@ -18,7 +18,7 @@ app.MapGet("/", () => new
 });
 
 
-// Data Store
+// Data Store - Not a Thread-safe implementation, for demonstration purposes only.
 List<Game> games =
 [
     new Game {
@@ -72,8 +72,54 @@ app.MapPost("/games", (Game game) =>
 })
     .WithName("CreateGame")
     .WithTags("Games")
+    .WithParameterValidation()
     .Produces<Game>(StatusCodes.Status201Created)
     .Produces(StatusCodes.Status400BadRequest)
+    .Produces(StatusCodes.Status500InternalServerError);
+
+// PUT /games/{id}
+app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
+{
+    Game? existingGame = games.FirstOrDefault(g => g.Id == id);
+
+    if (existingGame is null)
+    {
+        return Results.NotFound();
+    }
+
+    existingGame.Name = updatedGame.Name;
+    existingGame.Genre = updatedGame.Genre;
+    existingGame.Price = updatedGame.Price;
+    existingGame.ReleaseDate = updatedGame.ReleaseDate;
+
+    return Results.NoContent();
+})
+    .WithName("UpdateGame")
+    .WithTags("Games")
+    .WithParameterValidation()
+    .Produces<Game>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status400BadRequest)
+    .Produces(StatusCodes.Status500InternalServerError);
+
+// DELETE /games/{id}
+app.MapDelete("/games/{id:guid}", (Guid id) =>
+{
+    Game? existingGame = games.FirstOrDefault(g => g.Id == id);
+
+    if (existingGame is null)
+    {
+        return Results.NotFound();
+    }
+
+    games.Remove(existingGame);
+
+    return Results.NoContent();
+})
+    .WithName("DeleteGame")
+    .WithTags("Games")
+    .Produces(StatusCodes.Status204NoContent)
+    .Produces(StatusCodes.Status404NotFound)
     .Produces(StatusCodes.Status500InternalServerError);
 
 app.Run();

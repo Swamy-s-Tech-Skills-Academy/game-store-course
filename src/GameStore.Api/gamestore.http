@@ -21,7 +21,7 @@ POST {{GameAPIs_HostAddress}}/games
 Content-Type: {{ContentType}}
 
 {
-    "name": "TEST GAME",
+    "name": "Test Game",
     "genreId": "C0FE34BF-1E5F-43A0-B370-AB7C45B388C1",
     "genre": "Action",
     "price": 19.99,
@@ -30,11 +30,12 @@ Content-Type: {{ContentType}}
 }
 
 ###
-PUT {{GameAPIs_HostAddress}}/games/5AEFF6C8-9828-4D03-90F6-F809CFBF7680
+PUT {{GameAPIs_HostAddress}}/games/954aaaad-fcf4-4ed2-9106-eee20fff87d5
 Content-Type: {{ContentType}}
 
 {
-    "name": "Minecraft for Windows",
+    "name": "Test Game Updated",
+    "genre": "Family and Kids",
     "genreId": "AF333D56-2146-4899-9ABE-BA9ABD7EFC83",
     "price": 7.97,
     "releaseDate": "2011-11-18",
@@ -42,7 +43,7 @@ Content-Type: {{ContentType}}
 }
 
 ###
-DELETE {{GameAPIs_HostAddress}}/games/a0eaa60b-058c-4ec4-9412-2c0913725b06
+DELETE {{GameAPIs_HostAddress}}/games/954aaaad-fcf4-4ed2-9106-eee20fff87d5
 
 ###
 GET {{GameAPIs_HostAddress}}/genres
