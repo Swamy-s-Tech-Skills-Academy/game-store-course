@@ -9,6 +9,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 **Current Status (v1.0):** Working minimal API with in-memory collection storage
 
 ### Features
+
 - Basic CRUD operations for Games
 - In-memory collection as data store
 - Data validation using annotations
@@ -16,6 +17,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 - Parameter validation
 
 ### Technical Components
+
 - ASP.NET Core 9.0 Minimal API
 - In-memory List<Game> for storage
 - Data annotations for validation
@@ -26,6 +28,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 ### v1.1: Enhanced In-Memory API with Genres
 
 **New Features:**
+
 - Add Genre CRUD operations
 - Link Games to Genres
 - Filter games by genre
@@ -34,6 +37,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 ### v2.0: Repository Pattern
 
 **New Features:**
+
 - Implement Repository pattern
 - Interface-based design
 - Dependency Injection setup
@@ -42,6 +46,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 ### v3.0: Entity Framework Core Integration
 
 **New Features:**
+
 - Replace in-memory collection with EF Core
 - SQL Server database integration
 - Code-first migrations
@@ -51,6 +56,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 ### v4.0: Authentication and Authorization
 
 **New Features:**
+
 - JWT-based authentication
 - Role-based authorization
 - User management
@@ -59,6 +65,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 ### v5.0: Advanced Features
 
 **New Features:**
+
 - Caching implementation
 - Rate limiting
 - API versioning
@@ -68,6 +75,7 @@ This document outlines a plan for incrementally building a GameStore API using A
 ### v6.0: Deployment Ready
 
 **New Features:**
+
 - Docker containerization
 - CI/CD pipeline configuration
 - Environment configuration
