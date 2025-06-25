@@ -19,27 +19,44 @@ app.MapGet("/", () => new
 
 
 // Data Store - Not a Thread-safe implementation, for demonstration purposes only.
+List<Genre> genres =
+[
+    new Genre { Id = new Guid("d9890ce7-3f8b-4cb8-8421-e4cd736ce962"), Name = "Fighting" },
+    new Genre { Id = new Guid("b510fddf-3ea6-4761-90fb-e38a79d6c73a"), Name = "Kids and Family" },
+    new Genre { Id = new Guid("82992021-a9e0-47dd-8bc2-044250363da3"), Name = "Racing" },
+    new Genre { Id = new Guid("ddd00345-ac86-4023-854e-4f29d70fbe8d"), Name = "Roleplaying" },
+    new Genre { Id = new Guid("09f01785-4435-4958-bc1e-0b78150c464f"), Name = "Sports" },
+];
+
+
 List<Game> games =
 [
-    new Game {
+    new Game
+    {
         Id = Guid.NewGuid(),
         Name = "Street Fighter II",
-        Genre = "Fighting",
+        Genre = genres[0],
         Price = 19.99m,
-        ReleaseDate = new DateOnly(1992, 7, 15)
+        ReleaseDate = new DateOnly(1992, 7, 15),
+        Description = "A classic fighting game that set the standard for the genre."
     },
     new Game {
         Id = Guid.NewGuid(),
         Name = "Final Fantasy XIV",
-        Genre = "Roleplaying",
+        Genre = genres[3],
         Price = 59.99m,
-        ReleaseDate = new DateOnly(2010, 9, 30) },
-    new Game {
+        ReleaseDate = new DateOnly(2010, 9, 30),
+        Description = "A massively multiplayer online role-playing game (MMORPG) set in the Final Fantasy universe."
+    },
+    new Game
+    {
         Id = Guid.NewGuid(),
         Name = "FIFA 23",
-        Genre = "Sports",
+        Genre = genres[4],
         Price = 69.99m,
-        ReleaseDate = new DateOnly(2022, 9, 27) }
+        ReleaseDate = new DateOnly(2022, 9, 27),
+        Description = "The latest installment in the FIFA series, featuring realistic football simulation."
+    }
 ];
 
 // GET /games
