@@ -8,12 +8,15 @@ GET {{GameAPIs_HostAddress}}/
 ### Get All Games
 GET {{GameAPIs_HostAddress}}/games
 
+@ValidGameId =a57fd83e-5419-440a-9a1d-9e90cfed325a
+@InValidGameId =7dddd33b-fa28-49a9-8dfb-a145d800be0c
+
 ### Valid Game ID
-GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-a145d800be0c
+GET {{GameAPIs_HostAddress}}/games/{{ValidGameId}}
 
 
 ### Invalid Game ID
-GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-b245d800be0c
+GET {{GameAPIs_HostAddress}}/games/{{InValidGameId}}
 
 
 ### Create Game
