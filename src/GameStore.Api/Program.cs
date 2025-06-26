@@ -96,12 +96,36 @@ app.MapGet("/games/{id:guid}", (Guid id) =>
     .Produces(StatusCodes.Status500InternalServerError);
 
 // POST /games
-app.MapPost("/games", (Game game) =>
+app.MapPost("/games", (CreateGameDto gameDto) =>
 {
-    game.Id = Guid.NewGuid();
+    var genre = genres.FirstOrDefault(g => g.Id == gameDto.GenreId);
+    if (genre is null)
+    {
+        return Results.BadRequest("Invalid genre ID.");
+    }
+
+    var game = new Game
+    {
+        Id = Guid.NewGuid(),
+        Name = gameDto.Name,
+        Genre = genre,
+        Price = gameDto.Price,
+        ReleaseDate = gameDto.ReleaseDate,
+        Description = gameDto.Description
+    };
     games.Add(game);
 
-    return Results.CreatedAtRoute("GetGameById", new { id = game.Id }, game);
+    GameDetailsDto? gameDetails = game is not null
+        ? new GameDetailsDto(
+            game.Id,
+            game.Name,
+            game.Genre?.Id ?? Guid.Empty,
+            game.Price,
+            game.ReleaseDate,
+            game.Description)
+        : null;
+
+    return Results.CreatedAtRoute("GetGameById", new { id = game?.Id }, gameDetails);
 })
     .WithName("CreateGame")
     .WithTags("Games")
