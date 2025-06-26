@@ -1,4 +1,3 @@
-
 namespace GameStore.Api.Dtos;
 
 public record GameDetailsDto(

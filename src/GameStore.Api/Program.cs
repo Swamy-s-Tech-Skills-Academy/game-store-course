@@ -61,10 +61,15 @@ List<Game> games =
 ];
 
 // GET /games
-app.MapGet("/games", () => games)
+app.MapGet("/games", () => games.Select(game => new GameSummaryDto(
+        game.Id,
+        game.Name,
+        (game.Genre?.Id ?? Guid.Empty).ToString(),
+        game.Price,
+        game.ReleaseDate)))
     .WithName("GetAllGames")
     .WithTags("Games")
-    .Produces<List<Game>>(StatusCodes.Status200OK)
+    .Produces<List<GameSummaryDto>>(StatusCodes.Status200OK)
     .Produces(StatusCodes.Status500InternalServerError);
 
 // GET /games/{id}
