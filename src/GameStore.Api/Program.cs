@@ -135,7 +135,7 @@ app.MapPost("/games", (CreateGameDto gameDto) =>
     .Produces(StatusCodes.Status500InternalServerError);
 
 // PUT /games/{id}
-app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
+app.MapPut("/games/{id:guid}", (Guid id, UpdateGameDto updateGameDto) =>
 {
     Game? existingGame = games.FirstOrDefault(g => g.Id == id);
 
@@ -144,10 +144,17 @@ app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
         return Results.NotFound();
     }
 
-    existingGame.Name = updatedGame.Name;
-    existingGame.Genre = updatedGame.Genre;
-    existingGame.Price = updatedGame.Price;
-    existingGame.ReleaseDate = updatedGame.ReleaseDate;
+    var genre = genres.FirstOrDefault(g => g.Id == updateGameDto.GenreId);
+    if (genre is null)
+    {
+        return Results.BadRequest("Invalid genre ID.");
+    }
+
+    existingGame.Name = updateGameDto.Name;
+    existingGame.Genre = genre;
+    existingGame.Price = updateGameDto.Price;
+    existingGame.ReleaseDate = updateGameDto.ReleaseDate;
+    existingGame.Description = updateGameDto.Description;
 
     return Results.NoContent();
 })

@@ -8,7 +8,7 @@ GET {{GameAPIs_HostAddress}}/
 ### Get All Games
 GET {{GameAPIs_HostAddress}}/games
 
-@ValidGameId =a57fd83e-5419-440a-9a1d-9e90cfed325a
+@ValidGameId = 441ea96e-55b1-4e76-9561-3b3f47227a40
 @InValidGameId =7dddd33b-fa28-49a9-8dfb-a145d800be0c
 
 ### Valid Game ID
@@ -32,16 +32,15 @@ Content-Type: {{ContentType}}
 }
 
 ###
-PUT {{GameAPIs_HostAddress}}/games/954aaaad-fcf4-4ed2-9106-eee20fff87d5
+PUT {{GameAPIs_HostAddress}}/games/{{ValidGameId}}
 Content-Type: {{ContentType}}
 
 {
-    "name": "Test Game Updated",
-    "genre": "Family and Kids",
-    "genreId": "AF333D56-2146-4899-9ABE-BA9ABD7EFC83",
+    "name": "Street Fighter II Turbo",
+    "genreId": "d9890ce7-3f8b-4cb8-8421-e4cd736ce962",
     "price": 7.97,
     "releaseDate": "2011-11-18",
-    "description": "Survive the night or create a work of art in the hit sandbox game! Build anything you can imagine, uncover mysteries, and face thrilling foes in an infinite world that's unique in every playthrough. There's no wrong way to play!"
+    "description": "A classic fighting game that set the standard for the genre."
 }
 
 ###
