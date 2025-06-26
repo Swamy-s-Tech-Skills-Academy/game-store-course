@@ -1,3 +1,4 @@
+using GameStore.Api.Dtos;
 using GameStore.Api.Models;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
@@ -70,6 +71,16 @@ app.MapGet("/games", () => games)
 app.MapGet("/games/{id:guid}", (Guid id) =>
 {
     Game? game = games.FirstOrDefault(g => g.Id == id);
+
+    GameDetailsDto? gameDetails = game is not null
+        ? new GameDetailsDto(
+            game.Id,
+            game.Name,
+            game.Genre?.Id ?? Guid.Empty,
+            game.Price,
+            game.ReleaseDate,
+            game.Description)
+        : null;
 
     return (game is null) ? Results.NotFound() : Results.Ok(game);
 })
