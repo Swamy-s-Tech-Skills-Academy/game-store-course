@@ -1,3 +1,4 @@
+using GameStore.Api.Dtos;
 using GameStore.Api.Models;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
@@ -60,16 +61,31 @@ List<Game> games =
 ];
 
 // GET /games
-app.MapGet("/games", () => games)
+app.MapGet("/games", () => games.Select(game => new GameSummaryDto(
+        game.Id,
+        game.Name,
+        (game.Genre?.Id ?? Guid.Empty).ToString(),
+        game.Price,
+        game.ReleaseDate)))
     .WithName("GetAllGames")
     .WithTags("Games")
-    .Produces<List<Game>>(StatusCodes.Status200OK)
+    .Produces<List<GameSummaryDto>>(StatusCodes.Status200OK)
     .Produces(StatusCodes.Status500InternalServerError);
 
 // GET /games/{id}
 app.MapGet("/games/{id:guid}", (Guid id) =>
 {
     Game? game = games.FirstOrDefault(g => g.Id == id);
+
+    GameDetailsDto? gameDetails = game is not null
+        ? new GameDetailsDto(
+            game.Id,
+            game.Name,
+            game.Genre?.Id ?? Guid.Empty,
+            game.Price,
+            game.ReleaseDate,
+            game.Description)
+        : null;
 
     return (game is null) ? Results.NotFound() : Results.Ok(game);
 })
@@ -80,12 +96,36 @@ app.MapGet("/games/{id:guid}", (Guid id) =>
     .Produces(StatusCodes.Status500InternalServerError);
 
 // POST /games
-app.MapPost("/games", (Game game) =>
+app.MapPost("/games", (CreateGameDto gameDto) =>
 {
-    game.Id = Guid.NewGuid();
+    var genre = genres.FirstOrDefault(g => g.Id == gameDto.GenreId);
+    if (genre is null)
+    {
+        return Results.BadRequest("Invalid genre ID.");
+    }
+
+    var game = new Game
+    {
+        Id = Guid.NewGuid(),
+        Name = gameDto.Name,
+        Genre = genre,
+        Price = gameDto.Price,
+        ReleaseDate = gameDto.ReleaseDate,
+        Description = gameDto.Description
+    };
     games.Add(game);
 
-    return Results.CreatedAtRoute("GetGameById", new { id = game.Id }, game);
+    GameDetailsDto? gameDetails = game is not null
+        ? new GameDetailsDto(
+            game.Id,
+            game.Name,
+            game.Genre?.Id ?? Guid.Empty,
+            game.Price,
+            game.ReleaseDate,
+            game.Description)
+        : null;
+
+    return Results.CreatedAtRoute("GetGameById", new { id = game?.Id }, gameDetails);
 })
     .WithName("CreateGame")
     .WithTags("Games")
@@ -95,7 +135,7 @@ app.MapPost("/games", (Game game) =>
     .Produces(StatusCodes.Status500InternalServerError);
 
 // PUT /games/{id}
-app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
+app.MapPut("/games/{id:guid}", (Guid id, UpdateGameDto updateGameDto) =>
 {
     Game? existingGame = games.FirstOrDefault(g => g.Id == id);
 
@@ -104,10 +144,17 @@ app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
         return Results.NotFound();
     }
 
-    existingGame.Name = updatedGame.Name;
-    existingGame.Genre = updatedGame.Genre;
-    existingGame.Price = updatedGame.Price;
-    existingGame.ReleaseDate = updatedGame.ReleaseDate;
+    var genre = genres.FirstOrDefault(g => g.Id == updateGameDto.GenreId);
+    if (genre is null)
+    {
+        return Results.BadRequest("Invalid genre ID.");
+    }
+
+    existingGame.Name = updateGameDto.Name;
+    existingGame.Genre = genre;
+    existingGame.Price = updateGameDto.Price;
+    existingGame.ReleaseDate = updateGameDto.ReleaseDate;
+    existingGame.Description = updateGameDto.Description;
 
     return Results.NoContent();
 })
@@ -137,6 +184,15 @@ app.MapDelete("/games/{id:guid}", (Guid id) =>
     .WithTags("Games")
     .Produces(StatusCodes.Status204NoContent)
     .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status500InternalServerError);
+
+// GET /genres
+app.MapGet("/genres", () => genres.Select(genre => new GenreDto(
+        genre.Id,
+        genre.Name)))
+    .WithName("GetAllGenres")
+    .WithTags("Genres")
+    .Produces<List<GenreDto>>(StatusCodes.Status200OK)
     .Produces(StatusCodes.Status500InternalServerError);
 
 app.Run();

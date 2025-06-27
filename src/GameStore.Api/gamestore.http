@@ -8,12 +8,15 @@ GET {{GameAPIs_HostAddress}}/
 ### Get All Games
 GET {{GameAPIs_HostAddress}}/games
 
+@ValidGameId = 441ea96e-55b1-4e76-9561-3b3f47227a40
+@InValidGameId =7dddd33b-fa28-49a9-8dfb-a145d800be0c
+
 ### Valid Game ID
-GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-a145d800be0c
+GET {{GameAPIs_HostAddress}}/games/{{ValidGameId}}
 
 
 ### Invalid Game ID
-GET {{GameAPIs_HostAddress}}/games/7dddd33b-fa28-49a9-8dfb-b245d800be0c
+GET {{GameAPIs_HostAddress}}/games/{{InValidGameId}}
 
 
 ### Create Game
@@ -21,25 +24,23 @@ POST {{GameAPIs_HostAddress}}/games
 Content-Type: {{ContentType}}
 
 {
-    "name": "Test Game",
-    "genreId": "C0FE34BF-1E5F-43A0-B370-AB7C45B388C1",
-    "genre": "Action",
+    "name": "Minecraft",
+    "genreId": "b510fddf-3ea6-4761-90fb-e38a79d6c73a",
     "price": 19.99,
     "releaseDate": "1992-07-15",
-    "description": "Test Description"
+    "description": "Survive the night or create a work of art in the hit sandbox game! Build anything you can imagine, uncover mysteries, and face thrilling foes in an infinite world that's unique in every playthrough. There's no wrong way to play!"
 }
 
 ###
-PUT {{GameAPIs_HostAddress}}/games/954aaaad-fcf4-4ed2-9106-eee20fff87d5
+PUT {{GameAPIs_HostAddress}}/games/{{ValidGameId}}
 Content-Type: {{ContentType}}
 
 {
-    "name": "Test Game Updated",
-    "genre": "Family and Kids",
-    "genreId": "AF333D56-2146-4899-9ABE-BA9ABD7EFC83",
+    "name": "Street Fighter II Turbo",
+    "genreId": "d9890ce7-3f8b-4cb8-8421-e4cd736ce962",
     "price": 7.97,
     "releaseDate": "2011-11-18",
-    "description": "Survive the night or create a work of art in the hit sandbox game! Build anything you can imagine, uncover mysteries, and face thrilling foes in an infinite world that's unique in every playthrough. There's no wrong way to play!"
+    "description": "A classic fighting game that set the standard for the genre."
 }
 
 ###
