@@ -8,7 +8,7 @@ GET {{GameAPIs_HostAddress}}/
 ### Get All Games
 GET {{GameAPIs_HostAddress}}/games
 
-@ValidGameId = 441ea96e-55b1-4e76-9561-3b3f47227a40
+@ValidGameId = 056a7de0-92cf-4f02-be05-b1f6bd58f098
 @InValidGameId =7dddd33b-fa28-49a9-8dfb-a145d800be0c
 
 ### Valid Game ID

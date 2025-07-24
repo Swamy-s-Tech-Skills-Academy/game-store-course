@@ -138,13 +138,12 @@ app.MapPost("/games", (CreateGameDto gameDto) =>
 app.MapPut("/games/{id:guid}", (Guid id, UpdateGameDto updateGameDto) =>
 {
     Game? existingGame = games.FirstOrDefault(g => g.Id == id);
-
     if (existingGame is null)
     {
         return Results.NotFound();
     }
 
-    var genre = genres.FirstOrDefault(g => g.Id == updateGameDto.GenreId);
+    Genre? genre = genres.FirstOrDefault(g => g.Id == updateGameDto.GenreId);
     if (genre is null)
     {
         return Results.BadRequest("Invalid genre ID.");
