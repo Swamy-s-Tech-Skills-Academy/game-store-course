@@ -64,7 +64,7 @@ List<Game> games =
 app.MapGet("/games", () => games.Select(game => new GameSummaryDto(
         game.Id,
         game.Name,
-        (game.Genre?.Id ?? Guid.Empty).ToString(),
+        game.Genre?.Name ?? string.Empty,
         game.Price,
         game.ReleaseDate)))
     .WithName("GetAllGames")
@@ -87,7 +87,7 @@ app.MapGet("/games/{id:guid}", (Guid id) =>
             game.Description)
         : null;
 
-    return (game is null) ? Results.NotFound() : Results.Ok(game);
+    return (game is null) ? Results.NotFound() : Results.Ok(gameDetails);
 })
     .WithName("GetGameById")
     .WithTags("Games")
