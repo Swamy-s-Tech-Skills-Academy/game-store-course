@@ -187,9 +187,8 @@ app.MapDelete("/games/{id:guid}", (Guid id) =>
     .Produces(StatusCodes.Status500InternalServerError);
 
 // GET /genres
-app.MapGet("/genres", () => genres.Select(genre => new GenreDto(
-        genre.Id,
-        genre.Name)))
+app.MapGet("/genres", () => genres.Select(genre =>
+        new GenreDto(genre.Id, genre.Name)))
     .WithName("GetAllGenres")
     .WithTags("Genres")
     .Produces<List<GenreDto>>(StatusCodes.Status200OK)
