@@ -64,7 +64,7 @@ List<Game> games =
 app.MapGet("/games", () => games.Select(game => new GameSummaryDto(
         game.Id,
         game.Name,
-        (game.Genre?.Id ?? Guid.Empty).ToString(),
+        game.Genre?.Name ?? string.Empty,
         game.Price,
         game.ReleaseDate)))
     .WithName("GetAllGames")
@@ -87,7 +87,7 @@ app.MapGet("/games/{id:guid}", (Guid id) =>
             game.Description)
         : null;
 
-    return (game is null) ? Results.NotFound() : Results.Ok(game);
+    return (game is null) ? Results.NotFound() : Results.Ok(gameDetails);
 })
     .WithName("GetGameById")
     .WithTags("Games")
@@ -138,13 +138,12 @@ app.MapPost("/games", (CreateGameDto gameDto) =>
 app.MapPut("/games/{id:guid}", (Guid id, UpdateGameDto updateGameDto) =>
 {
     Game? existingGame = games.FirstOrDefault(g => g.Id == id);
-
     if (existingGame is null)
     {
         return Results.NotFound();
     }
 
-    var genre = genres.FirstOrDefault(g => g.Id == updateGameDto.GenreId);
+    Genre? genre = genres.FirstOrDefault(g => g.Id == updateGameDto.GenreId);
     if (genre is null)
     {
         return Results.BadRequest("Invalid genre ID.");
@@ -187,9 +186,8 @@ app.MapDelete("/games/{id:guid}", (Guid id) =>
     .Produces(StatusCodes.Status500InternalServerError);
 
 // GET /genres
-app.MapGet("/genres", () => genres.Select(genre => new GenreDto(
-        genre.Id,
-        genre.Name)))
+app.MapGet("/genres", () => genres.Select(genre =>
+        new GenreDto(genre.Id, genre.Name)))
     .WithName("GetAllGenres")
     .WithTags("Genres")
     .Produces<List<GenreDto>>(StatusCodes.Status200OK)
